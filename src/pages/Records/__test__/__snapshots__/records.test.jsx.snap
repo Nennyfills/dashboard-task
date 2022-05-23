@@ -1,0 +1,129 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Should take a snapshot 1`] = `
+<DocumentFragment>
+  <div
+    class="records"
+    data-testid="records"
+  >
+    <section
+      class="page-hero flex"
+    >
+      <div
+        class="page-hero__left"
+        data-testid=""
+      >
+        <h2
+          class="page-hero__left--title"
+        >
+          Reports
+        </h2>
+        <p
+          class="page-hero__left--desc"
+        >
+          Easily generate a report of your transactions
+        </p>
+      </div>
+      <div
+        class="flex"
+      >
+        <div
+          class="select-container"
+          data-testid="select-container"
+        >
+          <select
+            data-testid="select projectId"
+            id="projectId"
+          >
+            <option
+              value="select"
+            >
+              Select project
+            </option>
+          </select>
+        </div>
+        <div
+          class="select-container"
+          data-testid="select-container"
+        >
+          <select
+            data-testid="select gatewayId"
+            id="gatewayId"
+          >
+            <option
+              value="select"
+            >
+              Select gateway
+            </option>
+          </select>
+        </div>
+        <div
+          class="date-picker"
+          data-testid="date-picker"
+        >
+          <input
+            data-testid="input from"
+            id="from"
+            max="2022-05-23"
+            placeholder="From date"
+            required=""
+            type="date"
+          />
+        </div>
+        <div
+          class="date-picker"
+          data-testid="date-picker"
+        >
+          <input
+            data-testid="input to"
+            id="to"
+            max="2022-05-23"
+            placeholder="To date"
+            required=""
+            type="date"
+          />
+        </div>
+        <div
+          class="btnContainer"
+          data-testid="button"
+        >
+          <button
+            class="isGenerating secondary xs"
+            data-test="reuseable-button"
+            id="disabled"
+            type="submit"
+          >
+            Generate report
+          </button>
+        </div>
+      </div>
+    </section>
+    <section
+      class="records--empty"
+    >
+      <div
+        class="empty-state"
+        data-testid="empty-state"
+      >
+        <div
+          class="empty-state--detail"
+        >
+          <h2>
+            No reports
+          </h2>
+          <p
+            class="bold"
+          >
+            Currently you have no data for the reports to be generated.
+          Once you start generating traffic through the Balance application 
+          the reports will be shown.
+          </p>
+        </div>
+        <svg>
+          noReportIcon.svg
+        </svg>
+      </div>
+    </section>
+  </div>
+</DocumentFragment>
+`;

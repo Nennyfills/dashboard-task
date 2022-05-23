@@ -1,0 +1,56 @@
+.family {
+ &.roboto {
+  font-family: Roboto;
+ }
+}
+
+
+h2,
+.h2 {
+ font-style: normal;
+ font-weight: 700;
+ font-size: 24px;
+ line-height: 28.13px;
+}
+
+h2,
+.h2 {
+ font-style: normal;
+ font-weight: 600;
+ font-size: 23px;
+ line-height: 27.13px;
+}
+
+p,
+.p {
+ font-size: 16px;
+ line-height: 18.75px;
+ letter-spacing: -0.01px;
+
+ &-small,
+ &.small {
+  font-size: 14px;
+  line-height: 18px;
+  letter-spacing: -0.006px;
+ }
+
+ &-reg,
+ &.reg {
+  font-weight: 400;
+ }
+
+ &-medium,
+ &.medium {
+  font-weight: 500;
+ }
+
+ &-bold,
+ &.bold {
+  font-weight: 700;
+ }
+
+ &-semibold,
+ &.semibold {
+  font-weight: 600;
+ }
+}

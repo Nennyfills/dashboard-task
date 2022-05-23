@@ -1,0 +1,23 @@
+.empty-state {
+ margin-top: 10em;
+ &--detail {
+  margin: 3em auto;
+  display: block;
+  p,
+  h2 {
+   text-align: center;
+   margin: 0.6em;
+  }
+  p {
+   color: $dark-grey;
+  }
+  width: 100%;
+  @include respond(tab-to-desktop) {
+   width: 37%;
+  }
+ }
+ svg {
+  margin: auto;
+  display: block;
+ }
+}

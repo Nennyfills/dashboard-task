@@ -1,0 +1,54 @@
+.accordion-row {
+ &__col {
+  input {
+   position: absolute;
+   opacity: 0;
+   z-index: -1;
+  }
+ }
+ &--tab {
+  width: 100%;
+  @include respond(phone) {
+   width: auto;
+  }
+  color: #fff;
+ }
+ .content {
+  height: 1em;
+  min-height: 0;
+  padding: 0 1em;
+  transition: all 0.35s;
+  transform: scale(0.01);
+  opacity: 0;
+ }
+
+ label {
+  @include display-flex();
+  padding: 20px;
+  background: $white;
+  text-transform: capitalize;
+  cursor: pointer;
+  border-radius: 0.4em;
+  background: $white;
+  border-radius: 10px;
+ }
+ input:checked {
+  color: pink;
+  + .Label {
+   background: darken($primary, 10%);
+   color: $white;
+
+   &::after {
+    transform: rotate(90deg);
+   }
+  }
+  ~ .content {
+   height: fit-content;
+   overflow: auto;
+   margin-bottom: 1em;
+   padding: 1em;
+   transform: scale(1);
+   opacity: 1;
+  }
+ }
+}

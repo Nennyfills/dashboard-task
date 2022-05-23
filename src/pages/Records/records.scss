@@ -1,0 +1,66 @@
+.records {
+ &--empty {
+  // @include center;
+  // margin: auto;
+  // display: block;
+ }
+ .label {
+  &--inner {
+   @include display-flex($align: center);
+  }
+  .color {
+   width: 15px;
+   height: 15px;
+   border-radius: 5px;
+   margin-right: 0.2em;
+  }
+  @include display-flex($align: flex-start);
+  flex-wrap: wrap;
+ }
+ &__content {
+  @include display-flex($align: flex-start);
+  @include respond(tab-land) {
+   display: block;
+  }
+  &--width {
+   &.override {
+    width: 100%;
+   }
+   width: 60%;
+   @include respond(tab-land) {
+    width: 100%;
+   }
+  }
+  &__block {
+   margin-top: 27px;
+   background: $primary-background;
+   border-radius: 10px;
+   padding: 2em;
+   &--header {
+    margin-bottom: 2em;
+   }
+  }
+  &--footer {
+   margin: 27px 4px 17px;
+   padding: 1.3em 2em;
+   background: $primary-background;
+   border-radius: 10px;
+  }
+  &--chart {
+   width: 37%;
+   @include respond(tab-land) {
+    width: 100%;
+   }
+   &--width {
+    height: 24em;
+    @include respond(tab-land) {
+     height: 40em;
+    }
+    @include display-flex($justify: center);
+    &--inner {
+     width: 50%;
+    }
+   }
+  }
+ }
+}

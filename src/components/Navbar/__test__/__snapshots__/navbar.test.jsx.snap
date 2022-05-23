@@ -1,0 +1,55 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Should take a snapshot 1`] = `
+<DocumentFragment>
+  <nav
+    class="navbar"
+    data-testid="navbar"
+  >
+    <div
+      class="navbar__icon"
+      data-testid="icons"
+    >
+      <svg
+        class="navbar__icon--logo"
+      >
+        logo.svg
+      </svg>
+      <svg
+        class="navbar__icon--menu"
+      >
+        menuIcon.svg
+      </svg>
+    </div>
+    <div
+      class="navbar__avatar"
+    >
+      <div
+        class="navbar__avatar__holder"
+      >
+        <div
+          class="navbar__avatar--initials"
+          data-testid="initials"
+        >
+          <span
+            class="h2"
+          />
+          <span
+            class="h2"
+          />
+        </div>
+      </div>
+      <div
+        class="navbar__avatar__details"
+        data-testid="details"
+      >
+        <p
+          class="bold family roboto"
+        >
+          N/A
+        </p>
+      </div>
+    </div>
+  </nav>
+</DocumentFragment>
+`;

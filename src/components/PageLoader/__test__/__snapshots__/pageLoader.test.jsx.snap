@@ -1,0 +1,75 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Should take a snapshot 1`] = `
+<DocumentFragment>
+  <div
+    class="page-loader"
+    data-testid="page-loader"
+  >
+    <div
+      class="flex"
+      data-testid="page-loader-flex"
+    >
+      <div>
+        <div
+          class="loader small-width"
+        >
+          <div
+            class="shine"
+          />
+        </div>
+        <div
+          class="loader width"
+        >
+          <div
+            class="shine"
+          />
+        </div>
+      </div>
+      <div
+        class="flex override"
+        data-testid="page-loader-override"
+      >
+        <div
+          class="loader tiny-width"
+        >
+          <div
+            class="shine"
+          />
+        </div>
+        <div
+          class="loader tiny-width"
+        >
+          <div
+            class="shine"
+          />
+        </div>
+        <div
+          class="loader tiny-width"
+        >
+          <div
+            class="shine"
+          />
+        </div>
+        <div
+          class="loader tiny-width"
+        >
+          <div
+            class="shine"
+          />
+        </div>
+      </div>
+    </div>
+    <div>
+      <div
+        class="loader"
+        data-testid="page-loader-bottom"
+      >
+        <div
+          class="shine height"
+        />
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;

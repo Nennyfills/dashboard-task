@@ -1,0 +1,99 @@
+.page-loader {
+
+ .flex {
+  @include display-flex($align: flex-start);
+  flex-wrap: wrap;
+  &.override {
+   justify-content: revert;
+  }
+  @include respond(tab-port) {
+   display: block;
+   }
+ }
+ .loader {
+  text-align: center;
+  color: $dark-grey;
+  border-radius: 4px;
+  width: 100%;
+  padding: 1em;
+  &.width {
+   width: 650px;
+   @include respond(tab-port) {
+    width: 100%;
+   }
+  }
+  &.small-width {
+   width: 300px;
+   @include respond(tab-port) {
+    width: 100%;
+   }
+  }
+  &.tiny-width {
+   width: 150px;
+   @include respond(tab-port) {
+    width: 100%;
+   }
+  }
+
+  .shine {
+   width: 100%;
+   height: 1em;
+   border-radius: 4px;
+   &.height {
+    height: 650px;
+   }
+   &.min-height {
+    height: 350px;
+   }
+   &.tiny-height {
+    height: 190px;
+   }
+   &.height::before {
+    height: 650px;
+   }
+   &.min-height::before {
+    height: 350px;
+   }
+   &.tiny-height::before {
+    height: 190px;
+   }
+   animation-duration: 2.2s;
+   animation-fill-mode: forwards;
+   animation-iteration-count: infinite;
+   animation-name: shine;
+   animation-timing-function: linear;
+  }
+
+  .shine::before {
+   content: '';
+   display: block;
+   border: $light-grey-2 solid 1px;
+   width: 100%;
+   height: 2em;
+
+   border-radius: 4px;
+   background: linear-gradient(
+    to right,
+    #ebecf0 0%,
+    $light-grey-2 45%,
+    $light-grey-2 50%,
+    $light-grey-2 65%,
+    #ebecf0 100%
+   );
+   animation-duration: 2.2s;
+   animation-fill-mode: forwards;
+   animation-iteration-count: infinite;
+   animation-name: shine;
+   animation-timing-function: linear;
+  }
+
+  @keyframes shine {
+   0% {
+    background-position: -300px 0%;
+   }
+   100% {
+    background-position: 300px 0%;
+   }
+  }
+ }
+}

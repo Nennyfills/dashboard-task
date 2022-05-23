@@ -1,0 +1,56 @@
+.navbar {
+ max-width: 1750px;
+ @include respond(phone) {
+  max-width: unset;
+ }
+ height: 4.5em;
+ border-bottom: solid $light-grey 1px;
+ @include display-flex(space-between);
+ padding: 0.2em 2em;
+ @include respond(phone) {
+  font-size: 14px;
+  padding: 0.2em 0.7em;
+ }
+ &__icon {
+  @include display-flex();
+  &--logo {
+   margin-right: 2em;
+  }
+ }
+ &__avatar {
+  &--initials {
+   width: 2.5em;
+   height: 2.5em;
+   border-radius: 0.7em;
+   text-transform: uppercase;
+   background: $yellow;
+   color: $white;
+   @include display-flex(center);
+   font-size: 18px;
+   @include respond(phone) {
+    font-size: 14px;
+   }
+  }
+  @include display-flex(flex-end);
+
+  &__holder {
+   margin-right: 0.7em;
+   .loading {
+    background-color: $light-grey;
+   }
+  }
+  &__details {
+   text-transform: capitalize;
+   p {
+    word-break: break-all;
+   }
+  }
+  &__loader {
+   width: 50%;
+   margin-left: 2em;
+  }
+  .font-size {
+   @include fontSize(16);
+  }
+ }
+}

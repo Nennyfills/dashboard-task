@@ -1,0 +1,54 @@
+.sidebar {
+ margin-top: 0.9em;
+ padding: 2.5em 0;
+ background: $white;
+ height: 100vh;
+
+ &--body {
+  background: $white;
+  display: grid;
+  justify-content: flex-end;
+  svg {
+   width: 30.24px;
+   height: 30.24px;
+   margin: 0.8em 0.3em;
+   path {
+    fill: $grey;
+    stroke: $white;
+   }
+  }
+  .active.reports,
+  .active.monitor {
+   path:nth-child(1) {
+    fill: #2daee5;
+    stroke: none;
+   }
+   path:nth-child(2) {
+    fill: #2daee5;
+    stroke: none;
+   }
+   path:nth-child(3) {
+    fill: #005b97;
+    stroke: none;
+   }
+  }
+  .active {
+   path:nth-child(1) {
+    fill: #005b97;
+    stroke: none;
+   }
+   path:nth-child(2) {
+    fill: #2daee5;
+    stroke: none;
+   }
+   path:nth-child(4) {
+    fill: #2daee5;
+    stroke: none;
+   }
+   path:nth-child(3) {
+    fill: #2daee5;
+    stroke: none;
+   }
+  }
+ }
+}

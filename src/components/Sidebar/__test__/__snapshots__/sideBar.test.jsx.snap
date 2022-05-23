@@ -1,0 +1,71 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should take a snapshot 1`] = `
+<DocumentFragment>
+  <section
+    class="sidebar"
+    data-testid="sidebar"
+  >
+    <section
+      class="sidebar--body"
+      data-testid="sidebar--body"
+    >
+      <a
+        class=""
+        data-testid="sidebar--link"
+        href="/"
+      >
+        <svg
+          class="active "
+        >
+          chart.svg
+        </svg>
+      </a>
+      <a
+        class=""
+        data-testid="sidebar--link"
+        href="/block"
+      >
+        <svg
+          class=""
+        >
+          block.svg
+        </svg>
+      </a>
+      <a
+        class=""
+        data-testid="sidebar--link"
+        href="/monitor"
+      >
+        <svg
+          class=""
+        >
+          monitor.svg
+        </svg>
+      </a>
+      <a
+        class=""
+        data-testid="sidebar--link"
+        href="/reports"
+      >
+        <svg
+          class=""
+        >
+          report.svg
+        </svg>
+      </a>
+      <a
+        class=""
+        data-testid="sidebar--link"
+        href="/switch"
+      >
+        <svg
+          class=""
+        >
+          switch.svg
+        </svg>
+      </a>
+    </section>
+  </section>
+</DocumentFragment>
+`;

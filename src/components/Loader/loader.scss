@@ -1,0 +1,47 @@
+.center-loader {
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  justify-content: center;
+  text-align: center;
+  width: 100%;
+}
+
+.shimmer {
+  animation-duration: 2.2s;
+  animation-fill-mode: forwards;
+  animation-iteration-count: infinite;
+  animation-name: shimmer;
+  animation-timing-function: linear;
+  background: linear-gradient(
+    to right,
+    $light-grey-2 4%,
+    #e0ecf3 25%,
+    $light-grey 36%
+  );
+  background-size: 1200px 100%;
+  border-radius: 4em;
+  &-line {
+    width: 100%;
+    height: 15px;
+    align-self: center;
+    margin-left: 16px;
+  }
+}
+@-webkit-keyframes shimmer {
+  0% {
+    background-position: -100% 0;
+  }
+  100% {
+    background-position: 100% 0;
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -1200px 0;
+  }
+  100% {
+    background-position: 1200px 0;
+  }
+}

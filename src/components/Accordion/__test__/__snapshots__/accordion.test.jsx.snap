@@ -1,0 +1,62 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Should take a snapshot 1`] = `
+<DocumentFragment>
+  <div
+    class="accordion-row"
+    data-testid="accordion-row"
+  >
+    <div
+      class="accordion-row__col"
+      data-testid="accordion-row__col"
+    >
+      <div
+        class="accordion-row__tabs"
+        data-testid="accordion-row__tabs"
+      >
+        <div
+          class="accordion-row__tab"
+          data-testid="accordion-row__tabs"
+        >
+          <input
+            class="accordion"
+            id="check-0"
+            type="checkbox"
+          />
+          <label
+            class="accordion-row__tab--label semibold"
+            data-testid="accordion-row__tab--label"
+            date-label="amount"
+            for="check-0"
+          >
+            <p
+              class="bold"
+            >
+              project 1
+            </p>
+            <p
+              class="bold"
+            >
+              <span>
+                Total: 
+              </span>
+              576,778 USD
+            </p>
+          </label>
+          <div
+            class="content"
+          >
+            <div
+              class="content--inner"
+            >
+              <div>
+                Hello
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;
