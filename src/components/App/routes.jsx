@@ -1,31 +1,31 @@
-import Loader from 'components/Loader';
+import PageLoader from 'components/PageLoader';
 import Records from 'pages';
 
 const routes = [
   {
     path: '/',
     element: <div>index</div>,
-    loader: <Loader remove />,
+    loader: <PageLoader remove />,
   },
   {
     path: 'block',
     element: <div>block</div>,
-    loader: <Loader />,
+    loader: <PageLoader />,
   },
   {
     path: 'monitor',
     element: <div>monitor</div>,
-    loader: <Loader />,
+    loader: <PageLoader />,
   },
   {
     path: 'reports',
     element: <Records />,
-    loader: <Loader />,
+    loader: <PageLoader />,
   },
   {
     path: 'switch',
-    element: <div>last route</div>,
-    loader: <Loader />,
+    element: <div>Switch</div>,
+    loader: <PageLoader />,
   },
 ];
 
