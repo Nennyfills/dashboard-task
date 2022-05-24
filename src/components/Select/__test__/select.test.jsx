@@ -4,7 +4,7 @@ import Select from '..';
 
 const options = [{ value: 'working', label: 'project' }];
 it('Should render an select with select-container class', () => {
-  render(<Select options={options} />);
+  render(<Select active={{ value: 'working', label: 'project' }} options={options} />);
   const select = screen.getByTestId('select-container');
   expect(select).toHaveClass('select-container');
 });

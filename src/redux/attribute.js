@@ -4,9 +4,9 @@ import httpWrapper from 'api/axiosWrapper';
 export const getAllData = createAsyncThunk('report/getAll', async ({ url, id, filterPayload }) =>{
   const res = await httpWrapper({ url });
   if (res) {
-    const calls = res?.data?.map(async ()=> await httpWrapper({
+    const calls = res?.data?.map(async (value)=> await httpWrapper({
       url: 'report',
-      payload: filterPayload,
+      payload: { [id]: value?.[id], ...filterPayload },
       method: 'post',
     }));
     const result = await Promise.all(calls);
@@ -21,8 +21,8 @@ export const getAllData = createAsyncThunk('report/getAll', async ({ url, id, fi
   return [];
 });
 
-export const getReport = createAsyncThunk('report/getReport', async ({ filterPayload, title }) =>{
-  const eachReport = await httpWrapper({ url: 'report', payload: filterPayload, method: 'post' });
+export const getReport = createAsyncThunk('report/getReport', async ({ idType, id, filterPayload, title }) =>{
+  const eachReport = await httpWrapper({ url: 'report', payload: { [idType]: id, ...filterPayload }, method: 'post' });
   const data = [{
     name: title,
     data: eachReport?.data,

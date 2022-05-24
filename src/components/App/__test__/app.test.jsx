@@ -34,7 +34,7 @@ it('Should take a snapshot', () => {
   const { asFragment } = textTender(<App />, store);
   expect(asFragment(withoutRender(<App />, store))).toMatchSnapshot();
 });
-test('Should render app without crashing', () => {
+it('Should render app without crashing', () => {
   textTender(<App />, store);
   const appElement = screen.getByTestId('app');
   expect(appElement).toBeInTheDocument();

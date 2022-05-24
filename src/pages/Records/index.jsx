@@ -18,10 +18,12 @@ ChartJS.register(ArcElement, Tooltip, Legend);
 const Records = () => {
   const [projectHeader, setProjectHeader] = useState('All project');
   const [gateWayHeader, setGateWayHeader] = useState('All gateway');
-  const [gateWayId, setGateWayId] = useState(null);
   const [filterPayload, setFilterPayload] = useState({});
-  const [projectId, setProjectId] = useState(null);
+  const [type, setType] = useState('projectId');
   const [isGenerating, setIsGenerating] = useState(false);
+  const [dateActionFrom, setDateActionFrom] = useState(false);
+  const [dateActionTo, setDateActionTo] = useState(false);
+
   const [activeProject, setActiveProject] = useState({ value: 'select', label: 'Select project' });
   const [activeGateway, setActiveGateway] = useState({ value: 'select', label: 'Select gateway' });
 
@@ -29,6 +31,8 @@ const Records = () => {
   projectHeader === 'All project' || gateWayHeader === 'All gateway';
   const checkHeader2 =
   projectHeader === 'All project' && gateWayHeader === 'All gateway';
+  const checkHeader3 =
+  (projectHeader === 'All project' && gateWayHeader === 'All gateway') || (projectHeader !== 'All project' && gateWayHeader !== 'All gateway');
 
   const schema = useMemo(() => tableSchema, []);
   const schema2 = useMemo(() => tableSchema2, []);
@@ -41,10 +45,12 @@ const Records = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getAllData({ url: 'projects', id: 'projectId', filterPayload }));
     dispatch(getProjects());
     dispatch(getGateways());
   }, []);
+  useEffect(() => {
+    dispatch(getAllData({ url: type.split('Id')?.join('s'), id: type, filterPayload }));
+  }, [filterPayload?.to]);
 
   useEffect(() => {
     if (Attribute?.allProject?.[0]?.data?.length) {
@@ -54,36 +60,52 @@ const Records = () => {
   }, [Attribute?.allProject?.[0]?.data]);
 
   const handleOnchange = ({ target }) => {
-    setFilterPayload({
-      ...filterPayload,
-      [target.id]: target?.value,
-    });
+    setType(target?.id);
 
     if (target?.options[target?.selectedIndex]?.text === 'All project') {
-      dispatch(getAllData({ url: 'projects', id: projectId, filterPayload }));
+      dispatch(getAllData({ url: 'projects', id: 'projectId', filterPayload }));
     }
     if (target?.options[target?.selectedIndex]?.text === 'All gateway') {
-      dispatch(getAllData({ url: 'gateways', id: gateWayId, filterPayload }));
+      dispatch(getAllData({ url: 'gateways', id: 'gatewayId', filterPayload }));
     } else {
       dispatch(
         getReport({
           idType: target?.id,
+          id: target?.value,
           filterPayload,
           title: target?.options[target?.selectedIndex]?.text,
         })
       );
-      setGateWayId(target?.value);
     }
 
     if (target?.id === 'projectId') {
       setProjectHeader(target?.options[target?.selectedIndex]?.text);
-      setProjectId(target?.value);
     } else {
       setGateWayHeader(target?.options[target?.selectedIndex]?.text);
-      setGateWayId(target?.value);
     }
   };
 
+  const handleOnchangePicker = ({ target }) => {
+    setFilterPayload({
+      ...filterPayload,
+      [target.id]: target?.value,
+    });
+  };
+  const handleRemoveTo = ()=>{
+    setDateActionTo(!dateActionTo);
+    setFilterPayload({
+      ...filterPayload,
+      to: '',
+    });
+  };
+
+  const handleRemoveFrom = ()=>{
+    setDateActionFrom(!dateActionFrom);
+    setFilterPayload({
+      ...filterPayload,
+      from: '',
+    });
+  };
   return (
     <div className="records" data-testid="records">
       <section className="page-hero flex">
@@ -108,11 +130,18 @@ const Records = () => {
             placeholder="Select gateway"
             active={activeGateway}
           />
-          <DatePicker id="from" onChange={handleOnchange} />
+          <DatePicker
+            id="from"
+            onChange={handleOnchangePicker}
+            value={filterPayload?.from}
+            action={handleRemoveFrom}
+          />
           <DatePicker
             id="to"
-            onChange={handleOnchange}
+            onChange={handleOnchangePicker}
             placeholder="To date"
+            value={filterPayload?.to}
+            action={handleRemoveTo}
           />
           <Button
             variant="secondary"
@@ -166,7 +195,7 @@ const Records = () => {
                 />
               )}
             </div>
-            {checkHeader2 && (
+            {(checkHeader3) && (
             <div className="records__content--footer">
               <p className="bold">
                 Total:

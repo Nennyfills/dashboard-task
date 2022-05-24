@@ -1,4 +1,4 @@
-import { render, screen, fireEvent } from '@testing-library/react';
+import { render, screen, } from '@testing-library/react';
 import Input from '..';
 
 it('Should render an input with class date-picker', () => {
@@ -7,22 +7,11 @@ it('Should render an input with class date-picker', () => {
   expect(datePicker).toHaveClass('date-picker');
 });
 
-const setup = () => {
-  const utils = render(<Input />);
-  const input = utils.getByTestId('input');
-  return {
-    input,
-    ...utils,
-  };
-};
-
 it('It should no allow invalid date', () => {
-  const { input } = setup();
-  fireEvent.change(input, { target: { value: 6777 } });
-  expect(input.value).toBe('');
+  render(<Input value="" />);
+  expect((screen.getByTestId('input')).value).toEqual('');
 });
 it('It should allow only valid date', () => {
-  const { input } = setup();
-  fireEvent.change(input, { target: { value: '2020-05-24' } });
-  expect(input.value).toBe('2020-05-24');
+  render(<Input value="2020-05-24" />);
+  expect((screen.getByTestId('input')).value).toEqual('2020-05-24');
 });

@@ -61,27 +61,37 @@ exports[`Should take a snapshot 1`] = `
           class="date-picker"
           data-testid="date-picker"
         >
-          <input
-            data-testid="input from"
-            id="from"
-            max="2022-05-24"
-            placeholder="From date"
-            required=""
-            type="date"
-          />
+          <div
+            class="date-picker--group"
+          >
+            <input
+              data-testid="input from"
+              id="from"
+              max="2022-05-24"
+              placeholder="From date"
+              required=""
+              type="date"
+              value=""
+            />
+          </div>
         </div>
         <div
           class="date-picker"
           data-testid="date-picker"
         >
-          <input
-            data-testid="input to"
-            id="to"
-            max="2022-05-24"
-            placeholder="To date"
-            required=""
-            type="date"
-          />
+          <div
+            class="date-picker--group"
+          >
+            <input
+              data-testid="input to"
+              id="to"
+              max="2022-05-24"
+              placeholder="To date"
+              required=""
+              type="date"
+              value=""
+            />
+          </div>
         </div>
         <div
           class="btnContainer"

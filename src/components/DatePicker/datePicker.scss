@@ -1,11 +1,26 @@
 .date-picker {
+ &--group {
+  color: $primary;
+  background-color: $primary;
+  border-radius: 0.3em;
+  margin: 0.7em;
+  svg {
+   color: $white;
+   padding-right: 1em;
+   cursor: pointer;
+  }
+ }
  input[type='date']::before {
   content: attr(placeholder);
   position: absolute;
   color: $white;
  }
- input[type='date']::-webkit-calendar-picker-indicator {
+ input[type='date']:invalid::-webkit-calendar-picker-indicator {
   background-image: url('../../assets/svg/dateIcon.svg');
+  cursor: pointer;
+ }
+ input[type='date']:valid::-webkit-calendar-picker-indicator {
+  display: none;
   cursor: pointer;
  }
  input[type='date'] {
@@ -23,7 +38,7 @@
   border: none;
   padding: 9px 10px;
   border-radius: 0.3em;
-  margin: 0.7em;
+  // margin: 0.7em;
  }
 
  input[type='date']:focus,
