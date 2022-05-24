@@ -38,10 +38,12 @@
   border: none;
   padding: 9px 10px;
   border-radius: 0.3em;
-  // margin: 0.7em;
  }
 
- input[type='date']:focus,
+ input[type='date']:focus{
+   color: $white;
+ }
+ 
  input[type='date']:valid {
   color: $white;
  }

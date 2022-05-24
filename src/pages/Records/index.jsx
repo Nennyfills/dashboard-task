@@ -45,10 +45,12 @@ const Records = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
+    dispatch(getAllData({ url: type.split('Id')?.join('s'), id: type, filterPayload }));
     dispatch(getProjects());
     dispatch(getGateways());
   }, []);
   useEffect(() => {
+    if (!filterPayload?.from) return;
     dispatch(getAllData({ url: type.split('Id')?.join('s'), id: type, filterPayload }));
   }, [filterPayload?.to]);
 
