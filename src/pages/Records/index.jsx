@@ -1,3 +1,5 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable max-len */
 import { Accordion, Button, DatePicker, EmptyState, Select } from 'components';
 import Table from 'components/Table';
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
@@ -10,8 +12,8 @@ import {
   getProjects,
 } from 'redux/attribute';
 import { useEffect, useMemo, useState } from 'react';
-import currencyFormat from 'helpers';
-import { chartData, labels, tableSchema, tableSchema2 } from './data';
+import currencyFormat, { chartData, getLabels } from 'helpers';
+import { tableSchema, tableSchema2 } from './data';
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
@@ -20,10 +22,11 @@ const Records = () => {
   const [gateWayHeader, setGateWayHeader] = useState('All gateway');
   const [filterPayload, setFilterPayload] = useState({});
   const [type, setType] = useState('projectId');
-  const [isGenerating, setIsGenerating] = useState(false);
+  // const [isGenerating, setIsGenerating] = useState(false);
   const [dateActionFrom, setDateActionFrom] = useState(false);
   const [dateActionTo, setDateActionTo] = useState(false);
-
+  const [allTypes, setAllTypes] = useState({});
+  const [filterCallPayload, setFilterCallPayload] = useState(null);
   const [activeProject, setActiveProject] = useState({ value: 'select', label: 'Select project' });
   const [activeGateway, setActiveGateway] = useState({ value: 'select', label: 'Select gateway' });
 
@@ -49,9 +52,18 @@ const Records = () => {
     dispatch(getProjects());
     dispatch(getGateways());
   }, []);
+
   useEffect(() => {
     if (!filterPayload?.from) return;
-    dispatch(getAllData({ url: type.split('Id')?.join('s'), id: type, filterPayload }));
+    if (filterCallPayload?.title) {
+      dispatch(getReport({
+        allTypes,
+        filterPayload,
+        filterCallPayload
+      }));
+      return;
+    }
+    dispatch(getAllData({ filterPayload, ...filterCallPayload }));
   }, [filterPayload?.to]);
 
   useEffect(() => {
@@ -64,16 +76,38 @@ const Records = () => {
   const handleOnchange = ({ target }) => {
     setType(target?.id);
 
+    if (projectOptions.map((val)=> val?.label).includes(target?.options[target?.selectedIndex]?.text)) {
+      setAllTypes({ ...allTypes, projectId: target?.value });
+    }
+
+    if (gatewayOptions.map((val)=> val?.label).includes(target?.options[target?.selectedIndex]?.text)) {
+      setAllTypes({ ...allTypes, gatewayId: target?.value });
+    }
+
+    if (projectOptions.map((val)=> val?.label).includes(target?.options[target?.selectedIndex]?.text) && gateWayHeader === 'All gateway') {
+      setAllTypes({ ...allTypes, projectId: target?.value });
+      setFilterCallPayload({ url: 'gateways', id: 'gatewayId', typeName: 'projectId', typeId: target?.value });
+      dispatch(getAllData({ url: 'gateways', id: 'gatewayId', typeName: 'projectId', typeId: target?.value, filterPayload }));
+    }
+
+    if (gatewayOptions.map((val)=> val?.label).includes(target?.options[target?.selectedIndex]?.text) && projectHeader === 'All project') {
+      setAllTypes({ ...allTypes, gatewayId: target?.value });
+      setFilterCallPayload({ url: 'projects', id: 'projectId', typeName: 'gatewayId', typeId: target?.value, });
+      dispatch(getAllData({ url: 'projects', id: 'projectId', typeName: 'gatewayId', typeId: target?.value, filterPayload }));
+    }
+
     if (target?.options[target?.selectedIndex]?.text === 'All project') {
+      setFilterCallPayload({ url: 'projects', id: 'projectId' });
       dispatch(getAllData({ url: 'projects', id: 'projectId', filterPayload }));
     }
     if (target?.options[target?.selectedIndex]?.text === 'All gateway') {
-      dispatch(getAllData({ url: 'gateways', id: 'gatewayId', filterPayload }));
+      setFilterCallPayload({ url: 'gateways', id: 'gatewayId', });
+      dispatch(getAllData({ url: 'gateways', id: 'gatewayId', filterPayload, header: gateWayHeader }));
     } else {
+      setFilterCallPayload({ title: target?.options[target?.selectedIndex]?.text });
       dispatch(
         getReport({
-          idType: target?.id,
-          id: target?.value,
+          allTypes,
           filterPayload,
           title: target?.options[target?.selectedIndex]?.text,
         })
@@ -148,7 +182,7 @@ const Records = () => {
           <Button
             variant="secondary"
             className="isGenerating"
-            onClick={() => setIsGenerating(!isGenerating)}
+            // onClick={() => setIsGenerating(!isGenerating)}
           >
             Generate report
           </Button>
@@ -164,7 +198,7 @@ const Records = () => {
       {Attribute?.allProject?.[0]?.data?.length ? (
         <section className="records__content">
           <div
-            className={`records__content--width ${isGenerating ? '' : 'override'}`}
+            className={`records__content--width ${!checkHeader2 && !checkHeader3 ? '' : 'override'}`}
             data-testid="records-content"
           >
             <div className="records__content__block">
@@ -209,23 +243,30 @@ const Records = () => {
             )}
           </div>
 
-          {isGenerating && (
+          {(!checkHeader2 && !checkHeader3) && (
           <div className="records__content--chart" data-testid="records__content--chart">
             <div className="records__content--footer label">
-              {labels?.map((itm) => (
+              {getLabels(Attribute?.allProject)?.map((itm) => (
                 <div key={itm?.color} className="label--inner p small">
                   <div className="color" style={{ backgroundColor: itm?.color }} />
-                  {itm?.label}
+                  {itm?.name}
                 </div>
               ))}
             </div>
             <div className="records__content--chart--width">
               <div className="records__content--chart--width--inner">
-                <Doughnut data={chartData} />
+                <Doughnut data={chartData(Attribute?.allProject)} />
               </div>
             </div>
             <div className="records__content--footer" data-testid="records__content--footer">
-              <p className="bold">GATEWAY TOTAL | 14,065 USD</p>
+              <p className="bold">
+                {type.split('Id')?.join(' ')}
+                {' '}
+                TOTAL |
+                {' '}
+                {currencyFormat(Attribute?.allProject?.reduce((current, next)=>
+                  next.total + current, 0))}
+              </p>
             </div>
           </div>
           )}

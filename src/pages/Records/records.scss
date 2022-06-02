@@ -7,15 +7,18 @@
  .label {
   &--inner {
    @include display-flex($align: center);
+   margin-right: 1em;
+
+   .color {
+    width: 15px;
+    height: 15px;
+    border-radius: 5px;
+    margin-right: .2em;
+   }
   }
-  .color {
-   width: 15px;
-   height: 15px;
-   border-radius: 5px;
-   margin-right: 0.2em;
-  }
-  @include display-flex($align: flex-start);
+  @include display-flex($justify: revert, $align: flex-start);
   flex-wrap: wrap;
+  margin-right: 1em;
  }
  &__content {
   @include display-flex($align: flex-start);
@@ -45,6 +48,9 @@
    padding: 1.3em 2em;
    background: $primary-background;
    border-radius: 10px;
+   p {
+    text-transform: uppercase;
+   }
   }
   &--chart {
    width: 37%;

@@ -1,12 +1,15 @@
+/* eslint-disable no-unused-vars */
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import httpWrapper from 'api/axiosWrapper';
+import { sortAsc } from 'helpers';
 
-export const getAllData = createAsyncThunk('report/getAll', async ({ url, id, filterPayload }) =>{
+export const getAllData = createAsyncThunk('report/getAll', async ({ url, id, typeName, typeId, filterPayload }) =>{
   const res = await httpWrapper({ url });
+  const check = typeId ? { [typeName]: typeId } : {};
   if (res) {
     const calls = res?.data?.map(async (value)=> await httpWrapper({
       url: 'report',
-      payload: { [id]: value?.[id], ...filterPayload },
+      payload: { [id]: value?.[id], ...check, ...filterPayload },
       method: 'post',
     }));
     const result = await Promise.all(calls);
@@ -14,6 +17,7 @@ export const getAllData = createAsyncThunk('report/getAll', async ({ url, id, fi
       val.name = res?.data[index]?.name;
       val.id = res?.data[index]?.[id];
       val.total = val?.data?.reduce((current, next)=> next.amount + current, 0);
+      val.data = sortAsc(val.data);
       return val;
     });
     return allProject;
@@ -21,8 +25,8 @@ export const getAllData = createAsyncThunk('report/getAll', async ({ url, id, fi
   return [];
 });
 
-export const getReport = createAsyncThunk('report/getReport', async ({ idType, id, filterPayload, title }) =>{
-  const eachReport = await httpWrapper({ url: 'report', payload: { [idType]: id, ...filterPayload }, method: 'post' });
+export const getReport = createAsyncThunk('report/getReport', async ({ allTypes, filterPayload, title }) =>{
+  const eachReport = await httpWrapper({ url: 'report', payload: { ...allTypes, ...filterPayload }, method: 'post' });
   const data = [{
     name: title,
     data: eachReport?.data,

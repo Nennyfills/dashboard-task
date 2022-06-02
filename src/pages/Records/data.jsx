@@ -1,26 +1,5 @@
 import currencyFormat, { dateFormat } from 'helpers';
 
-export const labels = [
-  { color: '#A259FF', label: 'Project 1' },
-  { color: '#6497B1', label: 'Project 2' },
-  { color: '#FFC107', label: 'Project 3' },
-  { color: '#F24E1E', label: 'Project 4' }
-];
-
-export const chartData = {
-  datasets: [
-    {
-      label: '# of Votes',
-      data: [15, 15, 10, 60],
-      backgroundColor: [
-        '#F24E1E',
-        '#FFC107',
-        '#6497B1',
-        '#A259FF',
-      ],
-    },
-  ],
-};
 export const tableSchema = [
   {
     title: 'Date',
