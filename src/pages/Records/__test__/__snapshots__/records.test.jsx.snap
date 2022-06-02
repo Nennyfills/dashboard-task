@@ -67,7 +67,7 @@ exports[`Should take a snapshot 1`] = `
             <input
               data-testid="input from"
               id="from"
-              max="2022-06-02"
+              max="2022-06-03"
               placeholder="From date"
               required=""
               type="date"
@@ -85,7 +85,7 @@ exports[`Should take a snapshot 1`] = `
             <input
               data-testid="input to"
               id="to"
-              max="2022-06-02"
+              max="2022-06-03"
               placeholder="To date"
               required=""
               type="date"

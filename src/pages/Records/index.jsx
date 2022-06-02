@@ -34,9 +34,10 @@ const Records = () => {
   const checkHeader3 =
   (projectHeader === 'All project' && gateWayHeader === 'All gateway') || (projectHeader !== 'All project' && gateWayHeader !== 'All gateway');
 
+  const { Attribute } = useSelector(({ Attribute }) => ({ Attribute }));
+
   const schema = useMemo(() => tableSchema, []);
   const schema2 = useMemo(() => tableSchema2, []);
-  const { Attribute } = useSelector(({ Attribute }) => ({ Attribute }));
   const projectOptions = (Attribute?.projects?.map((itm) =>
     ({ label: itm?.name, value: itm?.projectId })) || []);
   const gatewayOptions = (Attribute?.gateways?.map((itm) =>
@@ -45,19 +46,17 @@ const Records = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getAllData({ url: 'projects', id: type, filterPayload }));
+    setFilterCallPayload({ url: 'projects', id: type });
+    dispatch(getAllData({ url: 'projects', id: type }));
     dispatch(getProjects());
     dispatch(getGateways());
   }, []);
 
   useEffect(() => {
     if (!filterPayload?.from) return;
+
     if (filterCallPayload?.title) {
-      dispatch(getReport({
-        allTypes,
-        filterPayload,
-        filterCallPayload
-      }));
+      dispatch(getReport({ allTypes, filterPayload, filterCallPayload }));
       return;
     }
     dispatch(getAllData({ filterPayload, ...filterCallPayload }));
@@ -72,43 +71,37 @@ const Records = () => {
 
   const handleOnchange = ({ target }) => {
     setType(target?.id);
+    const checkWithOption = (options) =>
+      options.map((val)=> val?.label).includes(target?.options[target?.selectedIndex]?.text);
+    const currentText = target?.options[target?.selectedIndex]?.text;
 
-    if (projectOptions.map((val)=>
-      val?.label).includes(target?.options[target?.selectedIndex]?.text)) {
+    if (target?.id === 'projectId') {
+      setProjectHeader(currentText);
+    } else {
+      setGateWayHeader(currentText);
+    }
+    if (checkWithOption(projectOptions)) {
       setAllTypes({ ...allTypes, projectId: target?.value });
     } else {
       setAllTypes({ ...allTypes, gatewayId: target?.value });
     }
-
-    if (projectOptions.map((val)=> val?.label).includes(target?.options[target?.selectedIndex]?.text) && gateWayHeader === 'All gateway') {
+    if (checkWithOption(projectOptions) && gateWayHeader === 'All gateway') {
       setAllTypes({ ...allTypes, projectId: target?.value });
       setFilterCallPayload({ url: 'gateways', id: 'gatewayId', typeName: 'projectId', typeId: target?.value });
       dispatch(getAllData({ url: 'gateways', id: 'gatewayId', typeName: 'projectId', typeId: target?.value, filterPayload }));
-    } else if (gatewayOptions.map((val)=> val?.label).includes(target?.options[target?.selectedIndex]?.text) && projectHeader === 'All project') {
+    } else if (checkWithOption(gatewayOptions) && projectHeader === 'All project') {
       setAllTypes({ ...allTypes, gatewayId: target?.value });
       setFilterCallPayload({ url: 'projects', id: 'projectId', typeName: 'gatewayId', typeId: target?.value, });
       dispatch(getAllData({ url: 'projects', id: 'projectId', typeName: 'gatewayId', typeId: target?.value, filterPayload }));
-    } else if (target?.options[target?.selectedIndex]?.text === 'All project') {
+    } else if (currentText === 'All project') {
       setFilterCallPayload({ url: 'projects', id: 'projectId' });
       dispatch(getAllData({ url: 'projects', id: 'projectId', filterPayload }));
-    } else if (target?.options[target?.selectedIndex]?.text === 'All gateway') {
+    } else if (currentText === 'All gateway') {
       setFilterCallPayload({ url: 'gateways', id: 'gatewayId', });
       dispatch(getAllData({ url: 'gateways', id: 'gatewayId', filterPayload, header: gateWayHeader }));
     } else {
-      setFilterCallPayload({ title: target?.options[target?.selectedIndex]?.text });
-      dispatch(
-        getReport({
-          allTypes,
-          filterPayload,
-          title: target?.options[target?.selectedIndex]?.text,
-        })
-      );
-    }
-
-    if (target?.id === 'projectId') {
-      setProjectHeader(target?.options[target?.selectedIndex]?.text);
-    } else {
-      setGateWayHeader(target?.options[target?.selectedIndex]?.text);
+      setFilterCallPayload({ title: currentText });
+      dispatch(getReport({ allTypes, filterPayload, title: currentText }));
     }
   };
 
