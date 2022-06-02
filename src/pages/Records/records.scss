@@ -1,9 +1,9 @@
 .records {
- &--empty {
-  // @include center;
-  // margin: auto;
-  // display: block;
- }
+//  &--empty {
+//   // @include center;
+//   // margin: auto;
+//   // display: block;
+//  }
  .label {
   &--inner {
    @include display-flex($align: center);

@@ -1,5 +1,3 @@
-/* eslint-disable no-unused-vars */
-/* eslint-disable max-len */
 import { Accordion, Button, DatePicker, EmptyState, Select } from 'components';
 import Table from 'components/Table';
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
@@ -22,7 +20,6 @@ const Records = () => {
   const [gateWayHeader, setGateWayHeader] = useState('All gateway');
   const [filterPayload, setFilterPayload] = useState({});
   const [type, setType] = useState('projectId');
-  // const [isGenerating, setIsGenerating] = useState(false);
   const [dateActionFrom, setDateActionFrom] = useState(false);
   const [dateActionTo, setDateActionTo] = useState(false);
   const [allTypes, setAllTypes] = useState({});
@@ -48,7 +45,7 @@ const Records = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getAllData({ url: type.split('Id')?.join('s'), id: type, filterPayload }));
+    dispatch(getAllData({ url: 'projects', id: type, filterPayload }));
     dispatch(getProjects());
     dispatch(getGateways());
   }, []);
@@ -76,11 +73,10 @@ const Records = () => {
   const handleOnchange = ({ target }) => {
     setType(target?.id);
 
-    if (projectOptions.map((val)=> val?.label).includes(target?.options[target?.selectedIndex]?.text)) {
+    if (projectOptions.map((val)=>
+      val?.label).includes(target?.options[target?.selectedIndex]?.text)) {
       setAllTypes({ ...allTypes, projectId: target?.value });
-    }
-
-    if (gatewayOptions.map((val)=> val?.label).includes(target?.options[target?.selectedIndex]?.text)) {
+    } else {
       setAllTypes({ ...allTypes, gatewayId: target?.value });
     }
 
@@ -88,19 +84,14 @@ const Records = () => {
       setAllTypes({ ...allTypes, projectId: target?.value });
       setFilterCallPayload({ url: 'gateways', id: 'gatewayId', typeName: 'projectId', typeId: target?.value });
       dispatch(getAllData({ url: 'gateways', id: 'gatewayId', typeName: 'projectId', typeId: target?.value, filterPayload }));
-    }
-
-    if (gatewayOptions.map((val)=> val?.label).includes(target?.options[target?.selectedIndex]?.text) && projectHeader === 'All project') {
+    } else if (gatewayOptions.map((val)=> val?.label).includes(target?.options[target?.selectedIndex]?.text) && projectHeader === 'All project') {
       setAllTypes({ ...allTypes, gatewayId: target?.value });
       setFilterCallPayload({ url: 'projects', id: 'projectId', typeName: 'gatewayId', typeId: target?.value, });
       dispatch(getAllData({ url: 'projects', id: 'projectId', typeName: 'gatewayId', typeId: target?.value, filterPayload }));
-    }
-
-    if (target?.options[target?.selectedIndex]?.text === 'All project') {
+    } else if (target?.options[target?.selectedIndex]?.text === 'All project') {
       setFilterCallPayload({ url: 'projects', id: 'projectId' });
       dispatch(getAllData({ url: 'projects', id: 'projectId', filterPayload }));
-    }
-    if (target?.options[target?.selectedIndex]?.text === 'All gateway') {
+    } else if (target?.options[target?.selectedIndex]?.text === 'All gateway') {
       setFilterCallPayload({ url: 'gateways', id: 'gatewayId', });
       dispatch(getAllData({ url: 'gateways', id: 'gatewayId', filterPayload, header: gateWayHeader }));
     } else {
@@ -179,11 +170,7 @@ const Records = () => {
             value={filterPayload?.to}
             action={handleRemoveTo}
           />
-          <Button
-            variant="secondary"
-            className="isGenerating"
-            // onClick={() => setIsGenerating(!isGenerating)}
-          >
+          <Button variant="secondary" className="isGenerating">
             Generate report
           </Button>
         </div>
